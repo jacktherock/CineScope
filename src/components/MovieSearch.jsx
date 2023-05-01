@@ -11,7 +11,7 @@ const MovieSearch = () => {
         let url = `http://www.omdbapi.com/?t=${movieName}&apikey=${key}`;
         //if input field is empty
         if (movieName.length <= 0) {
-            setResult(<h3 className="msg">Please enter a movie name</h3>);
+            setResult(<h3 className="msg">Please Enter a Movie name !</h3>);
         }
         //if input isn't empty
         else {
@@ -68,7 +68,7 @@ const MovieSearch = () => {
                 })
                 //if error occurs
                 .catch(() => {
-                    setResult(<h3 className="msg">Error Occurred</h3>);
+                    setResult(<h3 className="msg">Error Occurred !</h3>);
                 });
         }
     };
