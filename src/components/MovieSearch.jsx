@@ -7,7 +7,6 @@ const MovieSearch = () => {
     const [result, setResult] = useState("");
     const [loading, setLoading] = useState(false);
 
-
     const key = "c8048de5"; // Replace with your own OMDB API key
 
     const getMovie = () => {
@@ -72,8 +71,8 @@ const MovieSearch = () => {
                     }
                 })
                 // if error occurs
-                .catch((err) => {
-                    setResult(<h3 className="msg">{err.message}</h3>);
+                .catch(() => {
+                    setResult(<h3 className="msg">Error Occured !</h3>);
                 })
                 .finally(() => setLoading(false)); // set loading to false when done
         }
