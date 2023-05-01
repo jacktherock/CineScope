@@ -71,8 +71,9 @@ const MovieSearch = () => {
                     }
                 })
                 // if error occurs
-                .catch(() => {
-                    setResult(<h3 className="msg">Error Occured !</h3>);
+                .catch((err) => {
+                    // setResult(<h3 className="msg">Error Occured !</h3>);
+                    setResult(<h3 className="msg">{err.message}</h3>);
                 })
                 .finally(() => setLoading(false)); // set loading to false when done
         }
