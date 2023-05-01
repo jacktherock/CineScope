@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import starIcon from '../assets/star-icon.svg'
+import loadingGif from '../assets/loading.gif'
 
 const MovieSearch = () => {
     const [movieName, setMovieName] = useState("");
     const [result, setResult] = useState("");
+    const [loading, setLoading] = useState(false);
+
 
     const key = "c8048de5"; // Replace with your own OMDB API key
 
@@ -15,6 +18,8 @@ const MovieSearch = () => {
         }
         //if input isn't empty
         else {
+            setResult(""); // clear any previous result
+            setLoading(true); // set loading to true
             fetch(url)
                 .then((resp) => resp.json())
                 .then((data) => {
@@ -66,16 +71,17 @@ const MovieSearch = () => {
                         setResult(<h3 className="msg">{data.Error}</h3>);
                     }
                 })
-                //if error occurs
-                .catch(() => {
-                    setResult(<h3 className="msg">Error Occurred !</h3>);
-                });
+                // if error occurs
+                .catch((err) => {
+                    setResult(<h3 className="msg">{err.message}</h3>);
+                })
+                .finally(() => setLoading(false)); // set loading to false when done
         }
     };
 
     return (
-        <div class="container">
-            <div class="search-container">
+        <div className="container">
+            <div className="search-container">
                 <input
                     id="movie-name"
                     type="text"
@@ -87,7 +93,14 @@ const MovieSearch = () => {
                     Search
                 </button>
             </div>
-            <div id="result">{result}</div>
+            {loading ? (
+
+                <div style={{ marginTop: "2em", display: "grid", justifyContent: "center" }}>
+                    <img src={loadingGif} alt="" width="25"></img>
+                </div>
+            ) : (
+                <div id="result">{result}</div>
+            )}
         </div>
     );
 };
